@@ -1,3 +1,69 @@
+# Getting Started with React Redux
+The point of Redux, is to avoind passing parameters (props) across a lot of react components and functions, mainly when working with variables that is of the system's concern - that the community call as the application states or variables of global meaning from specific node->react applications.
+
+
+### How do we implement this? 
+Lets imagine that someone say that will help you with holding the values in the memory and public accessible, so you don't need to worry about this work.
+But this person proposes you a condition to help you with that: you have to transport the values to they, inside objects "nested" into another objects, in a way that they will be able to track the whole trajectory of the data until achieve on they, and you have to build and provide all this.
+
+Lets understand what they want exactly: 
+* Data integrity
+* Data tracking
+* Not changing directly the states (variable values) - make a copy changed of the original object (immutability)
+* Let it as semantic as possible accordlying to React resource names.
+
+Then with got this folder structure: 
+```bash
+redux-project-example
+└── src/
+    ├── store/
+    │   ├── index.js
+    │   ├── actions/
+    │   ├── types/
+    │   └── reducers/
+    │       └── index.js
+    ├── app.js
+    ├── index.js
+    └── components/
+```
+
+### Understanding the main folders of the store (that essentialy builds the Redux behaviour)
+  actions - keeps all named action files that exports one or more functions whose inherit the 'types' and just maps (transform) the parameters into some payload that respect the contract from reducers, requesting some state changing.
+  
+  types - keeps the functions types (can be interpreted as interfaces of some application that defines the class or module contract, that every action should inherit the related type that represents in few words what each action do.
+  
+  reducers - are the actors of this use case, being the files within it that receives the actions as parameters and accordingly to them, effects the actions to make changes in the states inside store.
+
+
+
+### The running flow might be like this: 
+  
+  1 - index.js - import the redux provider and apply to app.js.
+  
+  2 - app.js - inheirts the redux provider and apply to its children objects such as components.
+  
+  3 - components - imports the actions and stores (current states) and inherit app.js content. 
+    depending on the front-end object needs on rendering process, call the useDispatch() method passing the action as parameter.
+    the action might receive parameters as well, but the state chaging related values (the chaging request).
+
+  4 - actions - receives the components request parameters and prepare the payload (request to reducer)
+  
+  5 - reducer - receive the action object with the payload within it, by dispatch.
+            then evaluates the state changing request and perform the changings locally waiting to be attached to store.
+
+  6 - store - receives the reducer object attached by redux under hoods methods, 
+          then evaluates the reducer state and make the changes permanently in the running memory.
+
+  7 - components - re-renders and reads the current store state, populating dinamically the front-end with and based on store state values.
+            
+  
+  
+  
+
+
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
